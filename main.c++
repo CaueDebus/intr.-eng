@@ -82,7 +82,8 @@ void mainProgram(){
             case '*':
               Serial.println("keypad: backspace");
               k[i] = {0};//eu tentei null mas o compilador não deixa;
-              i--;
+              k[i -1] = {0};
+              i -= 2;
               break;
             default:
               delay(200);
@@ -146,7 +147,8 @@ void mainProgram(){
             case '*':
               Serial.println("keypad: backspace");
               k[i] = {0};//eu tentei null mas o compilador não deixa;
-              i--;
+              k[i -1] = {0};
+              i -= 2;
               break;
         	}     
     	}
@@ -180,56 +182,79 @@ void mainProgram(){
         lcd.print("PRESIDENTE:");
 
         for(int i=0; i<k1Size; i++){
+          if(i == 2)
+          {
+            k1[i] = keypad.waitForKey();
+            switch(k1[i]){
+              case '#':
+                delay(200);
+                Serial.println("keypad: confirma");
+                break;
+              case '*':
+                Serial.println("keypad: backspace");
+                k1[i] = {0};//eu tentei null mas o compilador não deixa;
+                k1[i -1] = {0};
+                i -= 2;
+                break;
+              default:
+                delay(200);
+                Serial.println("keypad: confirma");
+                break;
+            }
+          }
+          else
+          {
+            k1[i] = keypad.waitForKey();
 
-          k1[i] = keypad.waitForKey();
-
-          switch(k1[i]){
-            case '0':
-              Serial.println("keypad: 0");
-              lcd.print("0");
-              break;
-            case '1':
-              Serial.println("keypad: 1");
-              lcd.print("1");
-              break;
-            case '2':
-              Serial.println("keypad: 2");
-              lcd.print("2");
-              break;
-            case '3':
-              Serial.println("keypad: 3");
-              lcd.print("3");
-              break;
-            case '4':
-              Serial.println("keypad: 4");
-              lcd.print("4");
-              break;
-            case '5':
-              Serial.println("keypad: 5");
-              lcd.print("5");
-              break;
-            case '6':
-              Serial.println("keypad: 6");
-              lcd.print("6");
-              break;
-            case '7':
-              Serial.println("keypad: 7");
-              lcd.print("7");
-              break;
-            case '8':
-              Serial.println("keypad: 8");
-              lcd.print("8");
-              break;
-            case '9':
-              Serial.println("keypad: 9");
-              lcd.print("9");
-              break;
-            case '*':
-              Serial.println("keypad: backspace");
-              k1[i] = {0};//eu tentei null mas o compilador não deixa;
-              i--;
-              break;
+            switch(k1[i]){
+              case '0':
+                Serial.println("keypad: 0");
+                lcd.print("0");
+                break;
+              case '1':
+                Serial.println("keypad: 1");
+                lcd.print("1");
+                break;
+              case '2':
+                Serial.println("keypad: 2");
+                lcd.print("2");
+                break;
+              case '3':
+                Serial.println("keypad: 3");
+                lcd.print("3");
+                break;
+              case '4':
+                Serial.println("keypad: 4");
+                lcd.print("4");
+                break;
+              case '5':
+                Serial.println("keypad: 5");
+                lcd.print("5");
+                break;
+              case '6':
+                Serial.println("keypad: 6");
+                lcd.print("6");
+                break;
+              case '7':
+                Serial.println("keypad: 7");
+                lcd.print("7");
+                break;
+              case '8':
+                Serial.println("keypad: 8");
+                lcd.print("8");
+                break;
+              case '9':
+                Serial.println("keypad: 9");
+                lcd.print("9");
+                break;
+              case '*':
+                Serial.println("keypad: backspace");
+                k1[i] = {0};//eu tentei null mas o compilador não deixa;
+                k1[i -1] = {0};
+                i -= 2;
+                break;
             }   
+          }
         }
 
         /*conversão do vetor de caracteres k1[] para um inteiro*/
@@ -248,63 +273,86 @@ void mainProgram(){
         lcd.clear();
 
         /*variáveis governador*/
-        int k2Size = 3;
+        int k2Size = 4;
         char k2[3] = {0};
 
         Serial.println("voto governador requisitado");
         lcd.print("GOVERNADOR:");
 
         for(int i=0; i<k2Size; i++){
+          if(i == 3)
+          {
+            k2[i] = keypad.waitForKey();
+            switch(k2[i]){
+              case '#':
+                delay(200);
+                Serial.println("keypad: confirma");
+                break;
+              case '*':
+                Serial.println("keypad: backspace");
+                k2[i] = {0};//eu tentei null mas o compilador não deixa;
+                k2[i -1] = {0};
+                i -= 2;
+                break;
+              default:
+                delay(200);
+                Serial.println("keypad: confirma");
+                break;
+            }
+          }
+          else
+          {
+            k2[i] = keypad.waitForKey();
 
-          k2[i] = keypad.waitForKey();
-
-          switch(k2[i]){
-            case '0':
-              Serial.println("keypad: 0");
-              lcd.print("0");
-              break;
-            case '1':
-              Serial.println("keypad: 1");
-              lcd.print("1");
-              break;
-            case '2':
-              Serial.println("keypad: 2");
-              lcd.print("2");
-              break;
-            case '3':
-              Serial.println("keypad: 3");
-              lcd.print("3");
-              break;
-            case '4':
-              Serial.println("keypad: 4");
-              lcd.print("4");
-              break;
-            case '5':
-              Serial.println("keypad: 5");
-              lcd.print("5");
-              break;
-            case '6':
-              Serial.println("keypad: 6");
-              lcd.print("6");
-              break;
-            case '7':
-              Serial.println("keypad: 7");
-              lcd.print("7");
-              break;
-            case '8':
-              Serial.println("keypad: 8");
-              lcd.print("8");
-              break;
-            case '9':
-              Serial.println("keypad: 9");
-              lcd.print("9");
-              break;
-            case '*':
-              Serial.println("keypad: backspace");
-              k2[i] = {0};//eu tentei null mas o compilador não deixa;
-              i--;
-              break;
-            }   
+            switch(k2[i]){
+              case '0':
+                Serial.println("keypad: 0");
+                lcd.print("0");
+                break;
+              case '1':
+                Serial.println("keypad: 1");
+                lcd.print("1");
+                break;
+              case '2':
+                Serial.println("keypad: 2");
+                lcd.print("2");
+                break;
+              case '3':
+                Serial.println("keypad: 3");
+                lcd.print("3");
+                break;
+              case '4':
+                Serial.println("keypad: 4");
+                lcd.print("4");
+                break;
+              case '5':
+                Serial.println("keypad: 5");
+                lcd.print("5");
+                break;
+              case '6':
+                Serial.println("keypad: 6");
+                lcd.print("6");
+                break;
+              case '7':
+                Serial.println("keypad: 7");
+                lcd.print("7");
+                break;
+              case '8':
+                Serial.println("keypad: 8");
+                lcd.print("8");
+                break;
+              case '9':
+                Serial.println("keypad: 9");
+                lcd.print("9");
+                break;
+              case '*':
+                Serial.println("keypad: backspace");
+                k2[i] = {0};//eu tentei null mas o compilador não deixa;
+                k2[i -1] = {0};
+                i -= 2;
+                break;
+            }
+          }
         }
 
         /*conversão do vetor de caracteres k2[] para um inteiro*/
@@ -320,6 +368,7 @@ void mainProgram(){
         govNumber = s2.toInt();
 
         Serial.println("voto para governador computado");
+      
         lcd.clear();
         lcd.print("Votos enviados!");
 
