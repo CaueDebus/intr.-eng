@@ -2,10 +2,12 @@
 #include <LiquidCrystal.h>
 #include <WString.h>
 
-LiquidCrystal lcd(5, 4, 3, 2, A4, A5);
+LiquidCrystal lcd(5, 4, 3, 2, A4, A5); // pinos utilizados pelo lcd
 
-const byte ROWS = 4;
-const byte COLS = 4;
+const byte ROWS = 4; // set de 4 linhas para o keypad
+const byte COLS = 4; // set de 4 colunas para o keypad
+
+/*matriz de valores em caracteres para as teclas do keypad*/
 char keys[ROWS][COLS] = {
   {'1','2','3','A'},
   {'4','5','6','B'},
@@ -13,16 +15,16 @@ char keys[ROWS][COLS] = {
   {'*','0','#','D'}
 };
 
-byte rowPins[ROWS] = {A0, A1, 11, 10};
-byte colPins[COLS] = {9, 8, 7, 6};
-int LCDCol = 0;
-int LCDRow = 0;
+byte rowPins[ROWS] = {A0, A1, 11, 10}; // pinos das linhas do keypad
+byte colPins[COLS] = {9, 8, 7, 6}; // pinos das colunas do keypad
+int LCDCol = 0; // onde esta escrita em coluna do lcd
+int LCDRow = 0; // onde esta a escrita em linha do lcd
 
-Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS ); // referencia para utilizar comandos da biblioteca keypad sem definilos como função
 
 void setup(){
    Serial.begin(9600);
-   lcd.begin(16, 2);
+   lcd.begin(16, 2); // set de 16 pontos em linha e duas colunas para o start do lcd
    lcd.setCursor(LCDCol, LCDRow);
 }
   
@@ -45,26 +47,28 @@ void mainProgram(){
   int presidente4 = 0;
   int presidente5 = 0;
   int presidenteNulo = 0;
-  
+
+  /*enquanto validator == true um novo voto será requisitado*/
   while(validator == true){
     /*início novo voto*/
     Serial.println("Nova votacao iniciada");
     
     /*variáveis cpf*/
-    int cpfSize = 9;
-    char k[9] = {0};
+    int cpfSize = 9; // tamanho do cpf
+    char k[9] = {0}; // vetor com os valores digitados
     
     LCDCol = 0;
     
    	Serial.println("cpf requisitado");
     lcd.print("Digite CPF:");
     
-    ++LCDRow;
+    ++LCDRow; // para digitar os numeros na segunda linha do lcd
     lcd.setCursor(LCDCol, LCDRow);
     
+    /*looping para receber valores para o cpf enquanto cpfsize >= 8*/
     for(int i=0; i<cpfSize; i++){
         if(i == 8){
-          k[i] = keypad.waitForKey();
+          k[i] = keypad.waitForKey(); // obrigar o programa a receber uma tecla k na posição i do vetor k antes de executar o resto
           switch(k[i]){
             case '#':
               delay(200);
@@ -99,7 +103,7 @@ void mainProgram(){
             LCDCol++;
           }
 
-          k[i] = keypad.waitForKey();
+          k[i] = keypad.waitForKey(); // obrigar o programa a receber uma tecla k na posição i do vetor k antes de executar o resto
 
           switch(k[i]){
             case '0':
@@ -175,7 +179,7 @@ void mainProgram(){
     	}
     }
 
-    /*conversão do vetor de caracteres*/
+    /*conversão do vetor de caracteres para uma string*/
 
     /*variáveis*/
     int size = sizeof(k)/sizeof(char);
@@ -300,7 +304,7 @@ void mainProgram(){
           }
         }
 
-        /*conversão do vetor de caracteres*/
+        /*conversão do vetor de caracteres em uma string*/
 
         /*variáveis*/
         int size1 = sizeof(k1)/sizeof(char);
